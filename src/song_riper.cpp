@@ -319,17 +319,25 @@ static void process_event(int track)
     // XCMD
     else if (command == 0xcd)
     {
-        int subcmd;
-        // I assume it's always xIECV followed by xIECL, but I could be wrong.
-        subcmd = fgetc(inGBA);
-        assert(subcmd == 8);  // xIECV
-        midi.add_pseudo_echo_volume(track, fgetc(inGBA));
-        
-        subcmd = fgetc(inGBA);
-        assert(subcmd == 9);  // xIECL
-        midi.add_pseudo_echo_length(track, fgetc(inGBA));
-        
-        track_ptr[track] += 4;
+        while (1)
+        {
+            int xcmd = fgetc(inGBA);
+
+            switch (xcmd)
+            {
+                case 8:  // xIECV
+                    midi.add_pseudo_echo_volume(track, fgetc(inGBA));
+                    track_ptr[track] += 2;
+                    break;
+                case 9:  // xIECL
+                    midi.add_pseudo_echo_length(track, fgetc(inGBA));
+                    track_ptr[track] += 2;
+                    break;
+                default:  // not an XCMD
+                    ungetc(xcmd, inGBA);
+                    return;
+            }
+        }
         return;
     }
 
