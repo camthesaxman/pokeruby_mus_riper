@@ -8,7 +8,7 @@ CC=gcc -std=c99
 # CC=/usr/bin/gcc -std=c99
 
 # Parameters used for compilation
-FLAGS=-Wall -fdata-sections -ffunction-sections -fmax-errors=5 -Os -fpermissive
+FLAGS=-Wall -fdata-sections -ffunction-sections -fmax-errors=5 -Os
 # Additional parameters used for linking whole programs
 WHOLE=-s -fwhole-program
 
