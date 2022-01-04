@@ -8,9 +8,9 @@ CC=gcc -std=c99
 # CC=/usr/bin/gcc -std=c99
 
 # Parameters used for compilation
-FLAGS=-m32 -Wall -fdata-sections -ffunction-sections -fmax-errors=5 -Os
+FLAGS=-Wall -fdata-sections -ffunction-sections -fmax-errors=5 -Os -fpermissive
 # Additional parameters used for linking whole programs
-WHOLE=-s -fwhole-program -static
+WHOLE=-s -fwhole-program
 
 all: ../sappy_detector ../song_riper ../sound_font_riper ../gba_mus_riper
 
